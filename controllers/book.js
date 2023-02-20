@@ -14,8 +14,15 @@ controller.get('/', function (request, response) {
 });
 
 controller.get('/:id', function (request, response) {
-    let data = book.getOneBook(request.params.id);
-    response.send(data);
+    book.getOneBook(request.params.id,function(error, dbData){
+        if(error){
+            response.send(error);
+        }
+        else{
+            //return only the first object
+            response.send(dbData[0]);
+        }
+    });
 });
 
 controller.post('/', function (request, response) {

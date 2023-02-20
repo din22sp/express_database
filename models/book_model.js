@@ -10,8 +10,8 @@ const book={
     getAllBooks:function(callback){
         return db.query("select * from book",callback);
     },
-    getOneBook:function(id){
-        return bookArray[id];
+    getOneBook:function(id,callback){
+        return db.query("select * from book where id_book=?",[id],callback);
     },
     addBook:function(addData){
         let sql="insert into book(name,author,isbn) values("+addData.name+","+ addData.author +","+ addData.isbn+")";
