@@ -30,3 +30,11 @@ app.get('/sayhello/:fname',function(request,response){
 </pre>
 fname is mandatory, so this does not work <br>
 http://localhost:3000/sayhello <br>
+
+## Database connection
+
+Create a new user example like this:
+<pre>
+create user libuser@localhost identified by 'libpass';
+grant all on library.* to libuser@localhost;
+</pre>

@@ -3,8 +3,14 @@ const controller = express.Router();
 const book = require('../models/book_model');
 
 controller.get('/', function (request, response) {
-    let data = book.getAllBooks();
-    response.send(data);
+    book.getAllBooks(function(error, dbData){
+        if(error){
+            response.send(error);
+        }
+        else{
+            response.send(dbData);
+        }
+    });
 });
 
 controller.get('/:id', function (request, response) {
