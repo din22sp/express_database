@@ -8,7 +8,7 @@ controller.get('/', function (request, response) {
             response.send(error);
         }
         else{
-            response.send(dbData);
+            response.json(dbData);
         }
     });
 });
@@ -16,28 +16,49 @@ controller.get('/', function (request, response) {
 controller.get('/:id', function (request, response) {
     book.getOneBook(request.params.id,function(error, dbData){
         if(error){
-            response.send(error);
+            response.json(error);
         }
         else{
             //return only the first object
-            response.send(dbData[0]);
+            response.json(dbData[0]);
         }
     });
 });
 
 controller.post('/', function (request, response) {
-    let data = book.addBook(request.body);
-    response.send(data);
+    book.addBook(request.body,function(error,dbData){
+        if(error){
+            response.json(error);
+        }
+        else{
+            response.json(dbData);
+        }
+    })
 });
 
 controller.put('/:id', function (request, response) {
-    let data = book.updateBook(request.body, request.params.id);
-    response.send(data);
+    book.updateBook(request.body, request.params.id,function(error, dbData){
+        if(error){
+            response.json(error);
+        }
+        else{
+            response.json(dbData);
+        }
+    });
 });
 
 controller.delete('/:id', function (request, response) {
-    let data = book.updateBook(request.params.id);
-    response.send(data);
+    book.deleteBook(request.params.id,function(error, dbData){
+        if(error){
+            //to the frontend
+            response.json("Something went wrong");
+            //to console
+            console.log(error);
+        }
+        else {
+            response.json(dbData);
+        }
+    });
 });
 
 module.exports = controller;
